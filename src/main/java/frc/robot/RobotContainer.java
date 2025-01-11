@@ -19,14 +19,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Constants.ControllerConstants;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(1).in(RadiansPerSecond); // 1 of a rotation per second max angular velocity
-
-    private final SendableChooser<Command> autoChooser;
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -39,11 +37,13 @@ public class RobotContainer {
 
     private final CommandXboxController joystick = new CommandXboxController(0);
 
-    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final DriveSystem drivetrain = TunerConstants.createDrivetrain();
+
+    private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
         configureBindings();
-        
+        System.out.println("Im about to make autobuilder");    
         autoChooser = AutoBuilder.buildAutoChooser("New Auto");
     
         SmartDashboard.putData("Auto Chooser", autoChooser);
