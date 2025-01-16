@@ -30,28 +30,47 @@ public class ElevatorSystem extends SubsystemBase {
     motor.set(velocity);
   }
 
-  public static int getPos() {
+  private static double getMotorVelocity() {
+    return motor.getEncoder().getVelocity();
+  }
+
+  private static int getPos() {
     return pot.getValue();
   }
 
-  public static boolean atStage1() {
+  public boolean atStage1() {
     return stage1Limit.get();
   }
 
-  public static boolean atStage2() {
+  public boolean atStage2() {
     return stage2Limit.get();
   }
 
-  public static boolean atStage3() {
+  public boolean atStage3() {
     return stage3Limit.get();
   }
 
-  public static boolean atStage4() {
+  public boolean atStage4() {
     return stage4Limit.get();
   }
 
   public double getNewSpeed(double desiredPos) {
     return PID.calculate(getPos(), desiredPos);
+  }
+
+  public boolean isOscillating(double desiredPos) { // TODO: Consider generalizing this
+    boolean retval = false;
+
+    if ((getPos() >= desiredPos - ElevatorConstants.ELEVATOR_POS_TOLERANCE) & ((getMotorVelocity() >= 0) & (getMotorVelocity() <= ElevatorConstants.ELEVATOR_MOTOR_VELOCITY_TOLERANCE))) {
+      // checks if the elevator's current position is below the desired position within ELEVATOR_POS_TOLERANCE and the elevator is moving up at a speed below ELEVATOR_MOTOR_VELOCITY_TOLERANCE
+      retval = true;
+    } 
+    else if ((getPos() <= desiredPos + ElevatorConstants.ELEVATOR_POS_TOLERANCE) & ((getMotorVelocity() <= 0) & (getMotorVelocity() >= - ElevatorConstants.ELEVATOR_MOTOR_VELOCITY_TOLERANCE))) {
+      // checks if the elevator's current position is above the desired position within ELEVATOR_POS_TOLERANCE and the elevator is moving down at a speed below ELEVATOR_MOTOR_VELOCITY_TOLERANCE
+      retval = true;
+    }
+
+    return retval;
   }
 
   @Override

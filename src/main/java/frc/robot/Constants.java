@@ -30,10 +30,13 @@ public class Constants {
 
         public static final PIDController ELEVATOR_PID = new PIDController(0, 0, 0);
 
-        public static final int STAGE_1_POS = 4;
-        public static final int STAGE_2_POS = 8;
-        public static final int STAGE_3_POS = 12;
-        public static final int STAGE_4_POS = 157;
+        public static final double STAGE_1_POS = 4;
+        public static final double STAGE_2_POS = 8;
+        public static final double STAGE_3_POS = 12;
+        public static final double STAGE_4_POS = 157;
+
+        public static final double ELEVATOR_POS_TOLERANCE = 2;
+        public static final double ELEVATOR_MOTOR_VELOCITY_TOLERANCE = 0.2;
     }
 
 }
