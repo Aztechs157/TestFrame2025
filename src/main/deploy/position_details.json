@@ -1,0 +1,259 @@
+{
+    "reef": {
+        "tag6": {
+            "face": "closeLeftFace",
+            "coral": {
+                "stage1": {
+                    "verticalPos": 0.46,
+                    "horizontalOffsets": {
+                        "left": -0.301625,
+                        "center": 0,
+                        "right": 0.301625 
+                    }
+                },
+                "stage2": {
+                    "verticalPos": 0.81,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage3": {
+                    "verticalPos": 1.21,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage4": {
+                    "verticalPos": 1.83,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                }
+            },
+            "algae": {
+                "verticalPos": 0.965,
+                "horizontalOffset": 0
+            }
+        },
+
+        "tag7": {
+            "face": "closeCenterFace",
+            "coral": {
+                "stage1": {
+                    "verticalPos": 0.46,
+                    "horizontalOffsets": {
+                        "left": -0.301625,
+                        "center": 0,
+                        "right": 0.301625 
+                    }
+                },
+                "stage2": {
+                    "verticalPos": 0.81,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage3": {
+                    "verticalPos": 1.21,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage4": {
+                    "verticalPos": 1.83,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                }
+            },
+            "algae": {
+                "verticalPos": 1.365,
+                "horizontalOffset": 0
+            }
+        },
+
+        "tag8": {
+            "face": "closeRightFace",
+            "coral": {
+                "stage1": {
+                    "verticalPos": 0.46,
+                    "horizontalOffsets": {
+                        "left": -0.301625,
+                        "center": 0,
+                        "right": 0.301625 
+                    }
+                },
+                "stage2": {
+                    "verticalPos": 0.81,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage3": {
+                    "verticalPos": 1.21,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage4": {
+                    "verticalPos": 1.83,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                }
+            },
+            "algae": {
+                "verticalPos": 0.965,
+                "horizontalOffset": 0
+            }
+        },
+
+        "tag9": {
+            "face": "farRightFace",
+            "coral": {
+                "stage1": {
+                    "verticalPos": 0.46,
+                    "horizontalOffsets": {
+                        "left": -0.301625,
+                        "center": 0,
+                        "right": 0.301625 
+                    }
+                },
+                "stage2": {
+                    "verticalPos": 0.81,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage3": {
+                    "verticalPos": 1.21,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage4": {
+                    "verticalPos": 1.83,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                }
+            },
+            "algae": {
+                "verticalPos": 1.365,
+                "horizontalOffset": 0
+            }
+        },
+
+        "tag10": {
+            "face": "farCenterFace",
+            "coral": {
+                "stage1": {
+                    "verticalPos": 0.46,
+                    "horizontalOffsets": {
+                        "left": -0.301625,
+                        "center": 0,
+                        "right": 0.301625 
+                    }
+                },
+                "stage2": {
+                    "verticalPos": 0.81,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage3": {
+                    "verticalPos": 1.21,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage4": {
+                    "verticalPos": 1.83,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                }
+            },
+            "algae": {
+                "verticalPos": 0.965,
+                "horizontalOffset": 0
+            }
+        },
+
+        "tag11": {
+            "face": "farLeftFace",
+            "coral": {
+                "stage1": {
+                    "verticalPos": 0.46,
+                    "horizontalOffsets": {
+                        "left": -0.301625,
+                        "center": 0,
+                        "right": 0.301625 
+                    }
+                },
+                "stage2": {
+                    "verticalPos": 0.81,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage3": {
+                    "verticalPos": 1.21,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                },
+                "stage4": {
+                    "verticalPos": 1.83,
+                    "horizontalOffsets": {
+                        "left": -0.1651,
+                        "right": 0.1651
+                    }
+                }
+            },
+            "algae": {
+                "verticalPos": 1.365,
+                "horizontalOffset": 0
+            }
+        }
+    },
+
+    "processor": {
+        "verticalPos": 0.43,
+        "horizontalOffset": 0
+    },
+
+    "coralStation": {
+        "verticalPos": 0.95,
+        "tag1": {
+            "side": "left",
+            "horizontalOffsets": [-0.428667, -0.3215, -0.214333, -0.1071667, 0, 0.1071667, 0.214333, 0.3215, 0.428667]
+        },
+        "tag2": {
+            "side": "right",
+            "horizontalOffsets": [-0.428667, -0.3215, -0.214333, -0.1071667, 0, 0.1071667, 0.214333, 0.3215, 0.428667]
+        }
+    },
+
+    "barge": {
+
+    }
+
+}
