@@ -1,6 +1,9 @@
 package frc.robot;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 
 public class Constants {
     public static class ControllerConstants {
@@ -12,6 +15,25 @@ public class Constants {
         public static final double LEFT_X_DEADBAND = 0.1;
         public static final double LEFT_Y_DEADBAND = 0.1;
         public static final double RIGHT_X_DEADBAND = 0.1;
+    }
+
+    public class VisionConstants
+    {
+
+        public static final String LEFT_CAMERA_NICKNAME = "Microsoft_LifeCam_HD-3000_Left"; // TODO: find proper value
+        public static final Transform3d LEFT_CAMERA_PLACEMENT = new Transform3d(
+                new Translation3d(-0.305816, 0.2276856, 0.5478018), new Rotation3d())
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0.959931, 0)))
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0, -0.523599))); // TODO: find proper
+                                                                                              // value,
+        // new Rotation3d(0, 0.959931, 2.61799)
+        public static final String RIGHT_CAMERA_NICKNAME = "Microsoft_LifeCam_HD-3000_Right"; // TODO: find proper value
+        public static final Transform3d RIGHT_CAMERA_PLACEMENT = new Transform3d(
+                new Translation3d(-0.305816, -0.2276856, 0.5478018), new Rotation3d())
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0.959931, 0)))
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0, 0.523599))); // TODO: find proper
+                                                                                             // value,   
+
     }
 
     public static class LoggingConstants {
@@ -40,3 +62,4 @@ public class Constants {
     }
 
 }
+

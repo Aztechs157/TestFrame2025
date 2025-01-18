@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.VisionSystem;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -38,6 +39,8 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final DriveSystem drivetrain = TunerConstants.createDrivetrain();
+
+    public final VisionSystem visionSystem = new VisionSystem();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -65,6 +68,8 @@ public class RobotContainer {
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
+
+        System.out.print( visionSystem.getTagPose(3));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
