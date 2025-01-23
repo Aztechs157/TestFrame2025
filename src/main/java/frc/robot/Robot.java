@@ -4,14 +4,20 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.ControllerConstants;
+import frc.utilities.PrintLimiter;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
+  private PrintLimiter limiter = new PrintLimiter(1000);
+  public double aiming_constant = 100;
 
   public Robot() {
     m_robotContainer = new RobotContainer();
@@ -54,7 +60,39 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+    // Read in relevant data from the Camera
+        boolean targetVisible = false;
+        double targetYaw = 0.0;
+        var results = m_robotContainer.visionSystem.findTargets();
+        
+        if (results != null) {
+            // Camera processed a new frame since last
+            // Get the last one in the list.
+            var result = results.get(results.size() - 1);
+            if (m_robotContainer.visionSystem.getTargetID(result) == 7) {
+                // Found Tag 7, record its information
+                targetYaw = m_robotContainer.visionSystem.getTargetYaw(result);
+                targetVisible = true;
+            }
+        }
+
+        // TODO: the while loop is wrong!
+        boolean joystickX = m_robotContainer.joystick.x().getAsBoolean();
+        while (joystickX && targetVisible) {
+            double turn_vision = -1.0 * targetYaw * 0.05 * m_robotContainer.MaxAngularRate;
+            SmartDashboard.putNumber("yaw", targetYaw);
+            SmartDashboard.putNumber("turn", turn_vision);
+            aiming_constant = targetYaw;
+            joystickX = m_robotContainer.joystick.x().getAsBoolean();
+            m_robotContainer.drivetrain.setControl(m_robotContainer.drive.withRotationalRate(-turn_vision));  
+        }
+
+        SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
+        SmartDashboard.putNumber("joystick command turn", MathUtil.applyDeadband(-m_robotContainer.joystick.getRightX(), ControllerConstants.RIGHT_X_DEADBAND) * m_robotContainer.MaxAngularRate);
+
+  }
 
   @Override
   public void teleopExit() {}

@@ -30,7 +30,7 @@ public class GoToExtrema extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.runMotor(elevator.getNewSpeed(ElevatorConstants.STAGE_1_POS));
+    elevator.runMotor(elevator.getNewSpeed(isTop ? ElevatorConstants.STAGE_1_POS : ElevatorConstants.STAGE_4_POS));
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +42,6 @@ public class GoToExtrema extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.isOscillating(ElevatorConstants.STAGE_1_POS) | elevator.atStage1());
+    return (elevator.isOscillating(isTop ? ElevatorConstants.STAGE_1_POS : ElevatorConstants.STAGE_4_POS) | isTop ? elevator.atStage1() : elevator.atStage4());
   }
 }

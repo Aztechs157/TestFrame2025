@@ -27,6 +27,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -50,7 +51,7 @@ public class VisionSystem extends SubsystemBase {
         PortForwarder.add(5800, "photonvision.local", 5800);
 
         try {
-            tagLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
+            tagLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025Reefscape.m_resourceFile);
         } catch (IOException exception) {
             leftCamera.close();
             rightCamera.close();
@@ -288,7 +289,7 @@ public class VisionSystem extends SubsystemBase {
      */
     // TODO: Only use function if (tagLayout.getTagPose(target.getFiducialId()).isPresent()) 
 
-    public Pose3d getFieldRelativePose( Pose3d tagPose, Transform3d cameraToTarget) {
+    public Pose3d getFieldRelativePose(Pose3d tagPose, Transform3d cameraToTarget) {
         return PhotonUtils.estimateFieldToRobotAprilTag(cameraToTarget, tagPose, VisionConstants.LEFT_CAMERA_PLACEMENT);       
     }
 

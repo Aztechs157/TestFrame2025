@@ -10,12 +10,14 @@ import frc.robot.subsystems.ElevatorSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class GoToIntermidiatePos extends Command {
-  private ElevatorSystem elevator;
+  private final ElevatorSystem elevator;
+  private final String posName;
 
   /** Creates a new GoToStage1. */
-  public GoToIntermidiatePos(final ElevatorSystem elevator) {
+  public GoToIntermidiatePos(final ElevatorSystem elevator, final String posName) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
+    this.posName = posName;
     addRequirements(elevator);
   }
 
