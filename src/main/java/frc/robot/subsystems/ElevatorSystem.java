@@ -38,6 +38,16 @@ public class ElevatorSystem extends SubsystemBase {
     return pot.getValue();
   }
 
+  public boolean atStage(int stage) {
+    switch (stage) {
+      case 1: return atStage1();
+      case 2: return atStage2();
+      case 3: return atStage3();
+      case 4: return atStage4();
+      default: return false;
+    }
+  }
+
   public boolean atStage1() {
     return stage1Limit.get();
   }

@@ -7,7 +7,6 @@
                     "verticalPos": 0.46,
                     "horizontalOffsets": {
                         "left": -0.301625,
-                        "center": 0,
                         "right": 0.301625 
                     }
                 },
@@ -33,10 +32,7 @@
                     }
                 }
             },
-            "algae": {
-                "verticalPos": 0.965,
-                "horizontalOffset": 0
-            }
+            "algaeVerticalPos": 0.965
         },
 
         "tag7": {
@@ -46,7 +42,6 @@
                     "verticalPos": 0.46,
                     "horizontalOffsets": {
                         "left": -0.301625,
-                        "center": 0,
                         "right": 0.301625 
                     }
                 },
@@ -72,10 +67,7 @@
                     }
                 }
             },
-            "algae": {
-                "verticalPos": 1.365,
-                "horizontalOffset": 0
-            }
+            "algaeVerticalPos": 1.365
         },
 
         "tag8": {
@@ -85,7 +77,6 @@
                     "verticalPos": 0.46,
                     "horizontalOffsets": {
                         "left": -0.301625,
-                        "center": 0,
                         "right": 0.301625 
                     }
                 },
@@ -111,10 +102,7 @@
                     }
                 }
             },
-            "algae": {
-                "verticalPos": 0.965,
-                "horizontalOffset": 0
-            }
+            "algaeVerticalPos": 0.965
         },
 
         "tag9": {
@@ -124,7 +112,6 @@
                     "verticalPos": 0.46,
                     "horizontalOffsets": {
                         "left": -0.301625,
-                        "center": 0,
                         "right": 0.301625 
                     }
                 },
@@ -150,10 +137,7 @@
                     }
                 }
             },
-            "algae": {
-                "verticalPos": 1.365,
-                "horizontalOffset": 0
-            }
+            "algaeVerticalPos": 1.365
         },
 
         "tag10": {
@@ -163,7 +147,6 @@
                     "verticalPos": 0.46,
                     "horizontalOffsets": {
                         "left": -0.301625,
-                        "center": 0,
                         "right": 0.301625 
                     }
                 },
@@ -189,10 +172,7 @@
                     }
                 }
             },
-            "algae": {
-                "verticalPos": 0.965,
-                "horizontalOffset": 0
-            }
+            "algaeVerticalPos": 0.965
         },
 
         "tag11": {
@@ -202,7 +182,6 @@
                     "verticalPos": 0.46,
                     "horizontalOffsets": {
                         "left": -0.301625,
-                        "center": 0,
                         "right": 0.301625 
                     }
                 },
@@ -228,10 +207,7 @@
                     }
                 }
             },
-            "algae": {
-                "verticalPos": 1.365,
-                "horizontalOffset": 0
-            }
+            "algaeVerticalPos": 1.365
         }
     },
 
@@ -244,16 +220,12 @@
         "verticalPos": 0.95,
         "tag1": {
             "side": "left",
-            "horizontalOffsets": [-0.428667, -0.3215, -0.214333, -0.1071667, 0, 0.1071667, 0.214333, 0.3215, 0.428667]
+            "horizontalOffsets": [-0.85777, -0.64333, -0.42888, -0.21444, 0, 0.21444, 0.42888, 0.64333, 0.85777]
         },
         "tag2": {
             "side": "right",
-            "horizontalOffsets": [-0.428667, -0.3215, -0.214333, -0.1071667, 0, 0.1071667, 0.214333, 0.3215, 0.428667]
+            "horizontalOffsets": [-0.85777, -0.64333, -0.42888, -0.21444, 0, 0.21444, 0.42888, 0.64333, 0.85777]
         }
-    },
-
-    "barge": {
-
     }
 
 }

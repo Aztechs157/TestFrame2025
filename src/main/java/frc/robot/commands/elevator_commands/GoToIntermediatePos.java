@@ -2,33 +2,37 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.elevator_commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.parsing.PositionDetails;
 import frc.robot.subsystems.ElevatorSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class GoToIntermidiatePos extends Command {
-  private ElevatorSystem elevator;
+public class GoToIntermediatePos extends Command {
+  private final ElevatorSystem elevator;
+  private final int stage;
+  private final double stageHeight;
 
   /** Creates a new GoToStage1. */
-  public GoToIntermidiatePos(final ElevatorSystem elevator) {
+  public GoToIntermediatePos(final ElevatorSystem elevator, final PositionDetails positionDetails, final int stage) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     addRequirements(elevator);
+    this.stage = stage;
+    stageHeight = positionDetails.getCoralVerticalPos(stage);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevator.runMotor(elevator.getNewSpeed(ElevatorConstants.STAGE_2_POS));
+    elevator.runMotor(elevator.getNewSpeed(stageHeight));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.runMotor(elevator.getNewSpeed(ElevatorConstants.STAGE_2_POS));
+    elevator.runMotor(elevator.getNewSpeed(stageHeight));
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +44,6 @@ public class GoToIntermidiatePos extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.isOscillating(ElevatorConstants.STAGE_2_POS) | elevator.atStage2());
+    return (elevator.isOscillating(stageHeight) || elevator.atStage(stage));
   }
 }
