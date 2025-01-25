@@ -82,7 +82,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() ->
                 drive.withVelocityX(MathUtil.applyDeadband(-joystick.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND) * MaxSpeed) 
                     .withVelocityY(MathUtil.applyDeadband(-joystick.getLeftX(), ControllerConstants.LEFT_X_DEADBAND) * MaxSpeed) 
-                    .withRotationalRate(MathUtil.applyDeadband(-joystick.getRightX(), ControllerConstants.RIGHT_X_DEADBAND) * MaxAngularRate) 
+                    .withRotationalRate(Robot.rotationValue) 
             )
         );
 
@@ -107,5 +107,27 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
         // return Commands.print("No autonomous command configured");
+    }
+
+    public void overRideController(double turning_constant){
+        drivetrain.setDefaultCommand(
+            // Drivetrain will execute this command periodically
+            drivetrain.applyRequest(() ->
+                drive.withVelocityX(MathUtil.applyDeadband(-joystick.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND) * MaxSpeed) 
+                    .withVelocityY(MathUtil.applyDeadband(-joystick.getLeftX(), ControllerConstants.LEFT_X_DEADBAND) * MaxSpeed) 
+                    .withRotationalRate(turning_constant) 
+            )
+        );
+    }
+
+    public void resetController(){
+        drivetrain.setDefaultCommand(
+            // Drivetrain will execute this command periodically
+            drivetrain.applyRequest(() ->
+                drive.withVelocityX(MathUtil.applyDeadband(-joystick.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND) * MaxSpeed) 
+                    .withVelocityY(MathUtil.applyDeadband(-joystick.getLeftX(), ControllerConstants.LEFT_X_DEADBAND) * MaxSpeed) 
+                    .withRotationalRate(MathUtil.applyDeadband(-joystick.getRightX(), ControllerConstants.RIGHT_X_DEADBAND) * MaxAngularRate) 
+            )
+        );
     }
 }
