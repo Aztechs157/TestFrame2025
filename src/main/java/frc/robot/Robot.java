@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import org.photonvision.PhotonUtils;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +26,7 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   private PrintLimiter limiter = new PrintLimiter(1000);
   public static double rotationValue;
+  public static double forwardValue;
 
   public Robot() {
     m_robotContainer = new RobotContainer();
@@ -56,7 +60,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousExit() {}
-
+  
   @Override
   public void teleopInit() {
     if (m_autonomousCommand != null) {
@@ -70,6 +74,7 @@ public class Robot extends TimedRobot {
     // Read in relevant data from the Camera
         boolean targetVisible = false;
         double targetYaw = 0.0;
+        double targetRange = 0.0;
         var results = m_robotContainer.visionSystem.findTargets();
         
         if (results != null) {
@@ -77,9 +82,17 @@ public class Robot extends TimedRobot {
             // Get the last one in the list.
             var result = results.get(results.size() - 1);
             if (m_robotContainer.visionSystem.getTargetID(result) == 3) {
-                // Found Tag 7, record its information
+                // Found Tag 3, record its information
                 targetYaw = m_robotContainer.visionSystem.getTargetYaw(result);
+                targetRange = // TODO: only works for robot relative or aiming at shooting target, use data from the path smartdashboard posting instead.
+                              PhotonUtils.calculateDistanceToTargetMeters(
+                                      0.72, // Measured with a tape measure, or in CAD.
+                                      1.3, // From 2024 game manual for ID 7
+                                      Units.degreesToRadians(26), // Measured with a protractor, or in CAD.
+                                      Units.degreesToRadians(m_robotContainer.visionSystem.getTargetPitch(result)));
                 targetVisible = true;
+                SmartDashboard.putString("path", m_robotContainer.visionSystem.getBestPathToTarget(result).toString());
+                SmartDashboard.putNumber("Pitch", m_robotContainer.visionSystem.getTargetPitch(result));
             }
         }
 
@@ -90,10 +103,13 @@ public class Robot extends TimedRobot {
             SmartDashboard.putNumber("yaw", targetYaw);
             SmartDashboard.putNumber("turn", turn_vision);
             rotationValue = turn_vision;
+            forwardValue = (1 - targetRange) * 0.05 * m_robotContainer.MaxSpeed;
+            SmartDashboard.putNumber("range", targetRange);
+            SmartDashboard.putNumber("forward", forwardValue);
         }
         else {
           rotationValue = MathUtil.applyDeadband(-m_robotContainer.joystick.getRightX(), ControllerConstants.RIGHT_X_DEADBAND) * m_robotContainer.MaxAngularRate;
-
+          forwardValue = MathUtil.applyDeadband(-m_robotContainer.joystick.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND) * m_robotContainer.MaxSpeed;
         }
 
         SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
