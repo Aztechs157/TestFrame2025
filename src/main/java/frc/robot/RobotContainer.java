@@ -19,8 +19,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.ElevatorSystem;
+import frc.robot.subsystems.IntakeSystem;
+import frc.robot.subsystems.JointSystem;
 import frc.robot.subsystems.VisionSystem;
 
 public class RobotContainer {
@@ -39,7 +43,10 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final DriveSystem drivetrain = TunerConstants.createDrivetrain();
-
+    private final ElevatorSystem elevator = new ElevatorSystem();
+    private final IntakeSystem intake = new IntakeSystem();
+    private final JointSystem elbow = new JointSystem(true);
+    private final JointSystem wrist = new JointSystem(false);
     public final VisionSystem visionSystem = new VisionSystem();
 
     private final SendableChooser<Command> autoChooser;
