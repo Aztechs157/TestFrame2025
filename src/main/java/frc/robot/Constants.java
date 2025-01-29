@@ -74,14 +74,14 @@ public class Constants {
 
     public static class ElbowConstants {
         public static final int ELBOW_MOTOR_ID = 41;
-        public static final int ELBOW_POT_ID = 52;
+        public static final int ELBOW_ENCODER_ID = 52;
 
         public static final PIDController ELBOW_PID = new PIDController(0, 0, 0);
     }
 
     public static class WristConstants {
         public static final int WRIST_MOTOR_ID = 42;
-        public static final int WRIST_POT_ID = 51;
+        public static final int WRIST_ENCODER_ID = 51;
 
         public static final PIDController WRIST_PID = new PIDController(0, 0, 0);
     }

@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -11,17 +13,19 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElbowConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.WristConstants;
+import frc.utilities.PosUtils;
 
-public class JointSystem extends SubsystemBase {
-  private SparkMax motor;
-  private AnalogInput pot;
-  private PIDController PID;
+public class JointSystem extends SubsystemBase implements PosUtils {
+  private static SparkBase motor;
+  private static AnalogInput absEncoder;
+  private static PIDController PID;
 
   /** Creates a new JointSystem. */
   public JointSystem(boolean isElbow) {
-    motor = new SparkMax(isElbow ? ElbowConstants.ELBOW_MOTOR_ID : WristConstants.WRIST_MOTOR_ID, MotorType.kBrushless);
-    pot = new AnalogInput(isElbow ? ElbowConstants.ELBOW_POT_ID : WristConstants.WRIST_POT_ID);
+    motor = isElbow ? new SparkFlex(ElbowConstants.ELBOW_MOTOR_ID, MotorType.kBrushless) : new SparkMax(WristConstants.WRIST_MOTOR_ID, MotorType.kBrushless);
+    absEncoder = new AnalogInput(isElbow ? ElbowConstants.ELBOW_ENCODER_ID : WristConstants.WRIST_ENCODER_ID);
     PID = isElbow ? ElbowConstants.ELBOW_PID : WristConstants.WRIST_PID;
   }
 
@@ -29,9 +33,18 @@ public class JointSystem extends SubsystemBase {
     motor.set(velocity);
   }
 
-  private int getPos() {
-    return pot.getValue();
+  private double getMotorVelocity() {
+    return motor.getEncoder().getVelocity();
   }
+
+  private int getPos() {
+    return absEncoder.getValue();
+  }
+
+  public boolean isOscillating(double desiredPos) {
+    return PosUtils.isOscillating(desiredPos, getPos(), ElevatorConstants.ELEVATOR_POS_TOLERANCE, getMotorVelocity(), ElevatorConstants.ELEVATOR_MOTOR_VELOCITY_TOLERANCE);
+  }
+
 
   public double getNewSpeed(double desiredPos) {
     return PID.calculate(getPos(), desiredPos);

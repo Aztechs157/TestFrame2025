@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
+import frc.utilities.PosUtils;
 
-public class ElevatorSystem extends SubsystemBase {
+public class ElevatorSystem extends SubsystemBase implements PosUtils {
 
   private static SparkMax motor = new SparkMax(ElevatorConstants.ELEVATOR_MOTOR_ID, MotorType.kBrushless);
   private static AnalogInput pot = new AnalogInput(ElevatorConstants.ELEVATOR_POT_ID);
@@ -30,11 +31,11 @@ public class ElevatorSystem extends SubsystemBase {
     motor.set(velocity);
   }
 
-  private static double getMotorVelocity() {
+  private double getMotorVelocity() {
     return motor.getEncoder().getVelocity();
   }
 
-  private static int getPos() {
+  private double getPos() {
     return pot.getValue();
   }
 
@@ -68,19 +69,8 @@ public class ElevatorSystem extends SubsystemBase {
     return PID.calculate(getPos(), desiredPos);
   }
 
-  public boolean isOscillating(double desiredPos) { // TODO: Consider generalizing this
-    boolean retval = false;
-
-    if ((getPos() >= desiredPos - ElevatorConstants.ELEVATOR_POS_TOLERANCE) & ((getMotorVelocity() >= 0) & (getMotorVelocity() <= ElevatorConstants.ELEVATOR_MOTOR_VELOCITY_TOLERANCE))) {
-      // checks if the elevator's current position is below the desired position within ELEVATOR_POS_TOLERANCE and the elevator is moving up at a speed below ELEVATOR_MOTOR_VELOCITY_TOLERANCE
-      retval = true;
-    } 
-    else if ((getPos() <= desiredPos + ElevatorConstants.ELEVATOR_POS_TOLERANCE) & ((getMotorVelocity() <= 0) & (getMotorVelocity() >= - ElevatorConstants.ELEVATOR_MOTOR_VELOCITY_TOLERANCE))) {
-      // checks if the elevator's current position is above the desired position within ELEVATOR_POS_TOLERANCE and the elevator is moving down at a speed below ELEVATOR_MOTOR_VELOCITY_TOLERANCE
-      retval = true;
-    }
-
-    return retval;
+  public boolean isOscillating(double desiredPos) {
+    return PosUtils.isOscillating(desiredPos, getPos(), ElevatorConstants.ELEVATOR_POS_TOLERANCE, getMotorVelocity(), ElevatorConstants.ELEVATOR_MOTOR_VELOCITY_TOLERANCE);
   }
 
   @Override
