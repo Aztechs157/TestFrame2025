@@ -95,7 +95,6 @@ public class Robot extends TimedRobot {
                                       Units.degreesToRadians(m_robotContainer.visionSystem.getTargetPitch(result)));
                 targetVisible = true;
 
-                // -45 deg yaw
                 Translation3d translationToTarget = m_robotContainer.visionSystem.getBestPathToTarget(result).getTranslation();
                 SmartDashboard.putString("translation", translationToTarget.toString());
                 SmartDashboard.putString("path", m_robotContainer.visionSystem.getBestPathToTarget(result).toString());
@@ -105,8 +104,11 @@ public class Robot extends TimedRobot {
 
         boolean joystickX = m_robotContainer.joystick.x().getAsBoolean();
         if (joystickX && targetVisible) {
-            double turn_vision = -1.0 * targetYaw * 0.05 * m_robotContainer.MaxAngularRate;
-            // double turn_vision = aimingPID.calculate(0, targetYaw) * m_robotContainer.MaxAngularRate;
+            double tagFieldAngle = m_robotContainer.visionSystem.getTagFieldAngle(3);
+            double robotCurrentAngle = m_robotContainer.drivetrain.getState().Pose.getRotation().getRadians()+180;
+            // double turn_vision = -1.0 * targetYaw * 0.05 * m_robotContainer.MaxAngularRate; // works for aiming toward a target like you're gonna shoot
+            double turn_vision = -1.0 * (robotCurrentAngle - tagFieldAngle) * 0.05 * m_robotContainer.MaxAngularRate;
+            // double turn_vision = aimingPID.calculate(robotCurrentAngle, tagFieldAngle) * m_robotContainer.MaxAngularRate;
             SmartDashboard.putNumber("yaw", targetYaw);
             SmartDashboard.putNumber("turn", turn_vision);
             rotationValue = turn_vision;
@@ -118,8 +120,9 @@ public class Robot extends TimedRobot {
           rotationValue = MathUtil.applyDeadband(-m_robotContainer.joystick.getRightX(), ControllerConstants.RIGHT_X_DEADBAND) * m_robotContainer.MaxAngularRate;
           forwardValue = MathUtil.applyDeadband(-m_robotContainer.joystick.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND) * m_robotContainer.MaxSpeed;
         }
-
-        SmartDashboard.putNumber("RobotTurnyTurny", m_robotContainer.drivetrain.getRotation3d().getAngle());
+        SmartDashboard.putNumber("RobotTurnyTurnyAdj", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees()+180);
+        SmartDashboard.putNumber("target location", Units.radiansToDegrees(m_robotContainer.visionSystem.getTagFieldAngle(3)));
+        SmartDashboard.putNumber("RobotTurnyTurny", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees());
         SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
         SmartDashboard.putNumber("joystick command turn", MathUtil.applyDeadband(-m_robotContainer.joystick.getRightX(), ControllerConstants.RIGHT_X_DEADBAND) * m_robotContainer.MaxAngularRate);
 

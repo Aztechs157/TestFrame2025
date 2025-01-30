@@ -283,6 +283,13 @@ public class VisionSystem extends SubsystemBase {
     }
 
     /*
+     * Get the angle of the tag on the field in radians
+     */
+    public double getTagFieldAngle(int targetID) {
+        return tagLayout.getTagPose(targetID).get().getRotation().getAngle();
+    }
+
+    /*
      * Calculate your robot’s Pose3d on the field using the pose of the AprilTag
      * relative to the camera, pose of the AprilTag relative to the field, and the
      * transform from the camera to the origin of the robot.
