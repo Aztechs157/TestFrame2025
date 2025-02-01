@@ -11,18 +11,38 @@ public class ReefTag {
     public int tagID;
     public String face;
     public double algaeVerticalPos;
+    public double elevatorPos;
+    public double elbowPos;
+    public double wristPos;
 
     public ReefTag(JsonNode tagJSON, int tagID) {
         this.tagID = tagID; // TODO: Try to get tag ID from tagJSON
         this.face = tagJSON.get("face").asText();
         this.algaeVerticalPos = tagJSON.get("algaeVerticalPos").asDouble();
+        this.elevatorPos = tagJSON.get("systemPositions").get("elevator").asDouble();
+        this.elbowPos = tagJSON.get("systemPositions").get("elbow").asDouble();
+        this.wristPos = tagJSON.get("systemPositions").get("wrist").asDouble();
     }
 
     /**
-     * Get vertical position for the algae
-     * @return a double representing the vertical position
+     * Get elevator position for the algae
+     * @return a double representing the elevator position
      */
-    public double getAlgaeVerticalPos() {
+    public double getElevatorPosAtAlgae() {
+        return algaeVerticalPos;
+    }
+    /**
+     * Get elbow position for the algae
+     * @return a double representing the elbow position
+     */
+    public double getElbowPosAtAlgae() {
+        return algaeVerticalPos;
+    }
+    /**
+     * Get wrist position for the algae
+     * @return a double representing the wrist position
+     */
+    public double getWristPosAtAlgae() {
         return algaeVerticalPos;
     }
 }

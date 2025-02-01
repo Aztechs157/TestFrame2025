@@ -18,10 +18,8 @@ public class ElevatorSystem extends SubsystemBase implements PosUtils {
 
   private static SparkMax motor = new SparkMax(ElevatorConstants.ELEVATOR_MOTOR_ID, MotorType.kBrushless);
   private static AnalogInput pot = new AnalogInput(ElevatorConstants.ELEVATOR_POT_ID);
-  private static DigitalInput stage1Limit = new DigitalInput(ElevatorConstants.ELEVATOR_STAGE_1_LIMIT_ID);
-  private static DigitalInput stage2Limit = new DigitalInput(ElevatorConstants.ELEVATOR_STAGE_2_LIMIT_ID);
-  private static DigitalInput stage3Limit = new DigitalInput(ElevatorConstants.ELEVATOR_STAGE_3_LIMIT_ID);
-  private static DigitalInput stage4Limit = new DigitalInput(ElevatorConstants.ELEVATOR_STAGE_4_LIMIT_ID);
+  private static DigitalInput bottomLimit = new DigitalInput(ElevatorConstants.ELEVATOR_STAGE_1_LIMIT_ID);
+  private static DigitalInput topLimit = new DigitalInput(ElevatorConstants.ELEVATOR_STAGE_4_LIMIT_ID);
   private static PIDController PID = ElevatorConstants.ELEVATOR_PID;
 
   /** Creates a new ElevatorSystem. */
@@ -39,30 +37,16 @@ public class ElevatorSystem extends SubsystemBase implements PosUtils {
     return pot.getValue();
   }
 
-  public boolean atStage(int stage) {
-    switch (stage) {
-      case 1: return atStage1();
-      case 2: return atStage2();
-      case 3: return atStage3();
-      case 4: return atStage4();
-      default: return false;
-    }
+  public boolean atStage(boolean top) {
+    return top? atTop() : atBottom();
   }
 
-  public boolean atStage1() {
-    return stage1Limit.get();
+  public boolean atBottom() {
+    return bottomLimit.get();
   }
 
-  public boolean atStage2() {
-    return stage2Limit.get();
-  }
-
-  public boolean atStage3() {
-    return stage3Limit.get();
-  }
-
-  public boolean atStage4() {
-    return stage4Limit.get();
+  public boolean atTop() {
+    return topLimit.get();
   }
 
   public double getNewSpeed(double desiredPos) {

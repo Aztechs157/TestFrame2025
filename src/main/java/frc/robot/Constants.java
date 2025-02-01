@@ -70,6 +70,9 @@ public class Constants {
         public static final double INTAKE_MOTOR_SPEED = 0.5;
         public static final double PLACE_MOTOR_SPEED = 0.5;
         public static final double EJECT_MOTOR_SPEED = 0.5;
+
+        public static final double PLACE_TIME = 0.5;
+        public static final double EJECT_TIME = 0.5;
     }
 
     public static class ElbowConstants {

@@ -23,14 +23,19 @@ public class PositionDetails {
     public Dictionary<Integer, ReefTag> reefTags = new Hashtable<>();
 
     public class Stage {
-        public double verticalPos;
         public double leftOffset;
         public double rightOffset;
+        public double elevatorPos;
+        public double elbowPos;
+        public double wristPos;
+        
 
         public Stage(JsonNode stageJSON) {
-            this.verticalPos = stageJSON.get("verticalPos").asDouble();
             this.leftOffset = stageJSON.get("horizontalOffsets").get("left").asDouble();
             this.rightOffset = stageJSON.get("horizontalOffsets").get("right").asDouble();
+            this.elevatorPos = stageJSON.get("systemPositions").get("elevator").asDouble();
+            this.elbowPos = stageJSON.get("systemPositions").get("elbow").asDouble();
+            this.wristPos = stageJSON.get("systemPositions").get("wrist").asDouble();
         }
     }
 
@@ -56,27 +61,59 @@ public class PositionDetails {
     }
 
     /**
-     * Get vertical position for the algae for the specified tag
+     * Get elevator position for the algae
      * @param tagID - red oriented tag IDs ie: blue 17 -> red 6
-     * @return a double representing the vertical position
+     * @return a double representing the elevator position
      */
-    public double getAlgaeVerticalPos(int tagID) {
-        return reefTags.get(tagID).getAlgaeVerticalPos();
+    public double getElevatorPosAtAlgae(int tagID) {
+        return reefTags.get(tagID).getElevatorPosAtAlgae();
     }
     /**
-     * Get vertical position for the specified stage
-     * @param stage - one-indexed ie: 1,2,3,4
-     * @return a double representing the vertical position
+     * Get elbow position for the algae
+     * @param tagID - red oriented tag IDs ie: blue 17 -> red 6
+     * @return a double representing the elbow position
      */
-    public double getCoralVerticalPos(int stage) {
-        return corals[stage - 1].verticalPos;
+    public double getElbowPosAtAlgae(int tagID) {
+        return reefTags.get(tagID).getElbowPosAtAlgae();
+    }
+    /**
+     * Get wrist position for the algae
+     * @param tagID - red oriented tag IDs ie: blue 17 -> red 6
+     * @return a double representing the wrist position
+     */
+    public double getWristPosAtAlgae(int tagID) {
+        return reefTags.get(tagID).getWristPosAtAlgae();
+    }
+    /**
+     * Get elevator position for the specified stage
+     * @param stage - one-indexed ie: 1,2,3,4
+     * @return a double representing the elevator position
+     */
+    public double getElevatorPosAtStage(int stage) {
+        return corals[stage - 1].elevatorPos;
+    }
+    /**
+     * Get elbow position for the specified stage
+     * @param stage - one-indexed ie: 1,2,3,4
+     * @return a double representing the elbow position
+     */
+    public double getElbowPosAtStage(int stage) {
+        return corals[stage - 1].elbowPos;
+    }
+    /**
+     * Get wrist position for the specified stage
+     * @param stage - one-indexed ie: 1,2,3,4
+     * @return a double representing the wrist position
+     */
+    public double getWristPosAtStage(int stage) {
+        return corals[stage - 1].wristPos;
     }
     /**
      * Get left offset for the specified stage
      * @param stage - one-indexed ie: 1,2,3,4
      * @return a double representing the left offset
      */
-    public double getLeftOffset(int stage) {
+    public double getLeftOffsetAtStage(int stage) {
         return corals[stage - 1].leftOffset;
     }
     /**
@@ -84,7 +121,7 @@ public class PositionDetails {
      * @param stage - one-indexed ie: 1,2,3,4
      * @return a double representing the right offset
      */
-    public double getRightOffset(int stage) {
+    public double getRightOffsetAtStage(int stage) {
         return corals[stage - 1].rightOffset;
     }
 }

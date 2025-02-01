@@ -4,6 +4,7 @@
 
 package frc.robot.commands.intake_commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSystem;
@@ -11,6 +12,7 @@ import frc.robot.subsystems.IntakeSystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PlaceCoral extends Command {
   private final IntakeSystem intakeSystem;
+  private Timer timer = new Timer();
 
   /** Creates a new PlaceCoral. */
   public PlaceCoral(final IntakeSystem intakeSystem) {
@@ -23,6 +25,7 @@ public class PlaceCoral extends Command {
   @Override
   public void initialize() {
     intakeSystem.run(-IntakeConstants.PLACE_MOTOR_SPEED);
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,6 +41,6 @@ public class PlaceCoral extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !intakeSystem.hasCoral();
+    return timer.get() > IntakeConstants.PLACE_TIME;
   }
 }

@@ -11,7 +11,6 @@ import frc.robot.subsystems.ElevatorSystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class GoToIntermediatePos extends Command {
   private final ElevatorSystem elevator;
-  private final int stage;
   private final double stageHeight;
 
   /** Creates a new GoToStage1. */
@@ -19,8 +18,7 @@ public class GoToIntermediatePos extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     addRequirements(elevator);
-    this.stage = stage;
-    stageHeight = positionDetails.getCoralVerticalPos(stage);
+    stageHeight = positionDetails.getElevatorPosAtStage(stage);
   }
 
   // Called when the command is initially scheduled.
@@ -44,6 +42,6 @@ public class GoToIntermediatePos extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.isOscillating(stageHeight) || elevator.atStage(stage));
+    return elevator.isOscillating(stageHeight);
   }
 }

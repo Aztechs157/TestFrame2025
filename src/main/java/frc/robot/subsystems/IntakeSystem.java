@@ -14,8 +14,6 @@ import frc.robot.Constants.IntakeConstants;
 public class IntakeSystem extends SubsystemBase {
   private static SparkMax motor = new SparkMax(IntakeConstants.INTAKE_MOTOR_ID, MotorType.kBrushless);
   private static DigitalInput sensor = new DigitalInput(IntakeConstants.INTAKE_SENSOR_ID);
-  // private static DigitalInput sensor2 = new DigitalInput(IntakeConstants.INTAKE_SENSOR2_ID);
-
 
   /** Creates a new IntakeSystem. */
   public IntakeSystem() {}
@@ -27,10 +25,6 @@ public class IntakeSystem extends SubsystemBase {
   public boolean hasCoral() {
     return sensor.get();
   }
-
-  /* public boolean fullIntake() {
-    return sensor2.get();
-  } */
 
   @Override
   public void periodic() {
